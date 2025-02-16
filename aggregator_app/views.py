@@ -13,7 +13,7 @@ def aggregate():
 
 @app.route('/run-aggregator/', methods=['POST'])
 def run_aggregator():
-    subprocess.Popen(["python", "aggregator.py"])
+    subprocess.Popen(["python3", "aggregator.py"])
     return redirect(url_for('aggregatorsuccess'))
 
 @app.route("/aggregator-success/")
