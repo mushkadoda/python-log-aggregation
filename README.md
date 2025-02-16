@@ -8,6 +8,9 @@ Put some log files in the folder
 ```
 aggregator_app/tmp/logs
 ```
+Or remove the `.sample` suffix from the existing files
+
+
 
 in a terminal
 ```
