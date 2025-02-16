@@ -4,10 +4,15 @@
 Python3.9 or higher
 
 ## Usage
+Put some log files in the folder
+```
+aggregator_app/tmp/logs
+```
+
 in a terminal
-````
+```
 Go to "python-log-aggregation/aggregator_app" direectory
-````
+```
 
 Run the following commands:
 ```
