@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}
+Aggregate
+{% endblock %}
+{% block content %}
+<p>Any .log files located in the folder "tmp/logs/".</p>
+<form action="/run-aggregator/" method="post">
+    <button type="submit">Run Aggregator</button>
+</form>
+{% endblock %}

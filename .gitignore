@@ -169,3 +169,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Other
+processed_logs.json
+sample_output.json
+.vscode/
