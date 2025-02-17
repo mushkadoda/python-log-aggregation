@@ -21,16 +21,21 @@ async def process_log_file(file_path, aggregated_logs, log_counter, user_activit
             match = LOG_PATTERN.match(line.strip())
             if match:
                 log_entry = match.groupdict()
+                timestamp = f"{log_entry['date']} {log_entry['time']}"
                 aggregated_logs.append(log_entry)
 
                 # Count log levels
                 log_counter[log_entry["level"]] += 1
 
                 # Track user activity
-                if "logged in" in log_entry["message"]:
+                if "logged in" in log_entry["message"] or "logged out" in log_entry["message"]:
                     user = re.search(r"User '(.+?)'", log_entry["message"])
                     if user:
-                        user_activity.add(user.group(1))
+                        username = user.group(1)
+                        if username not in user_activity:
+                            user_activity[username] = {"actions": 0, "last_seen": ""}
+                        user_activity[username]["actions"] += 1
+                        user_activity[username]["last_seen"] = timestamp
 
                 # Count API errors
                 if "API request failed" in log_entry["message"]:
@@ -43,7 +48,7 @@ async def aggregate_logs():
     # Aggregate logs from multiple files asynchronously
     aggregated_logs = []
     log_counter = Counter()
-    user_activity = set()
+    user_activity = {}
     api_data = {"failed": 0, "total": 0}
 
     log_files = [os.path.join(LOG_DIR, f) for f in os.listdir(LOG_DIR) if f.endswith(".log")]
@@ -64,7 +69,7 @@ async def aggregate_logs():
     # Analyze log data
     insights = {
         "log_count" : dict(log_counter),
-        "user_activity": list(user_activity),
+        "user_activity": dict(user_activity),
         "api_errors": {
             "failed": api_data["failed"],
             "total": api_data["total"],

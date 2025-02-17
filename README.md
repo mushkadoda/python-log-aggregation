@@ -20,6 +20,7 @@ Go to "python-log-aggregation/aggregator_app" direectory
 Run the following commands:
 ```
 python3 -m venv .
+export set FLASK_APP=webapp
 pip3 install -r requirements.txt
 python3 -m flask run
 ```
