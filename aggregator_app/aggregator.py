@@ -69,7 +69,7 @@ async def aggregate_logs():
     # Analyze log data
     insights = {
         "log_count" : dict(log_counter),
-        "user_activity": dict(user_activity),
+        "user_activity": user_activity,
         "api_errors": {
             "failed": api_data["failed"],
             "total": api_data["total"],
