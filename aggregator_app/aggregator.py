@@ -27,8 +27,10 @@ async def process_log_file(file_path, aggregated_logs, log_counter, user_activit
                 # Count log levels
                 log_counter[log_entry["level"]] += 1
 
-                # Track user activity
-                if "logged in" in log_entry["message"] or "logged out" in log_entry["message"]:
+                # Track user activity based on all "User" activity
+                if "User" in log_entry["message"]:
+                #  Alternative filter, track user only based on "logged in" and "logged out" events
+                #  "logged in" in log_entry["message"] or "logged out" in log_entry["message"]:
                     user = re.search(r"User '(.+?)'", log_entry["message"])
                     if user:
                         username = user.group(1)
